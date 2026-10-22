@@ -10,16 +10,10 @@
 require_once __DIR__ . '/includes/functions.php';
 
 $page_title = 'Sima - Modul 4 PHP Server Side Dinamis';
-$daftar_mahasiswa = get_all_mahasiswa();
 $total_semua = count_total_mahasiswa();
-// Ambil keyword pencarian jika ada
-
-// Percobaan 4-4 Langkah 2
-
-$total_semua = count_total_mahasiswa();
-$total_tampil = count($daftar_mahasiswa);
-$keyword = $_GET['search'] ? trim($_GET['search']) : '';
+$keyword = trim((string) ($_GET['search'] ?? ''));
 $daftar_mahasiswa = get_all_mahasiswa($keyword);
+$total_tampil = count($daftar_mahasiswa);
 
 // Ambil flash message dari session jika tersedia
 $flash = get_flash_message();
@@ -114,11 +108,12 @@ require_once __DIR__ . '/includes/header.php';
             <tbody>
                 <?php if (empty($daftar_mahasiswa)): ?>
                     <tr>
-                            <td colspan="8" class=""empty-row">
-                            <?= !empty($keyword) ? 'tidak ditemukan data mahasiswa dengan kata kunci'. htmlspecialchars($keyword) . '".' 
-                            : 'belum ada data mahasiswa yang tersimpan.' ?>
+                        <td colspan="8" class="empty-row">
+                            <?= !empty($keyword)
+                                ? 'Tidak ditemukan data mahasiswa dengan kata kunci "' . htmlspecialchars($keyword) . '".'
+                                : 'Belum ada data mahasiswa yang tersimpan.' ?>
                         </td>
-                        </tr>
+                    </tr>
                 <?php else: ?>
 
                     <!-- Percobaan 4-2 Langkah 3 -->
@@ -234,4 +229,4 @@ require_once __DIR__ . '/includes/header.php';
 </section>
 
 <!-- memanggil file footer.php -->
-
+<?php require_once __DIR__ . '/includes/footer.php'; ?>
